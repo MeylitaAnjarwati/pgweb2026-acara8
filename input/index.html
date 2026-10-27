@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Form Input Penduduk</title>
+</head>
+
+<body>
+
+
+<hr>
+
+
+<h2>Form Input</h2>
+
+<form action="input.php"
+      onsubmit="return validateForm()"
+      method="post">
+
+    <label for="kec">Kecamatan:</label><br>
+    <input type="text"
+           id="kec"
+           name="kecamatan"><br><br>
+
+    <label for="long">Longitude:</label><br>
+    <input type="text"
+           id="long"
+           name="longitude"><br><br>
+
+    <label for="lat">Latitude:</label><br>
+    <input type="text"
+           id="lat"
+           name="latitude"><br><br>
+
+    <label for="luas">Luas:</label><br>
+    <input type="text"
+           id="luas"
+           name="luas"><br><br>
+
+    <label for="jml_ppdk">Jumlah Penduduk:</label><br>
+    <input type="text"
+           id="jml_ppdk"
+           name="jumlah_penduduk"><br><br>
+
+    <input type="submit" value="Submit">
+
+</form>
+
+<p id="informasi"></p>
+
+<script>
+function validateForm() {
+
+    let kecamatan =
+        document.getElementById("kec").value.trim();
+
+    let longitude =
+        document.getElementById("long").value.trim();
+
+    let latitude =
+        document.getElementById("lat").value.trim();
+
+    let luas =
+        document.getElementById("luas").value.trim();
+
+    let jumlahPenduduk =
+        document.getElementById("jml_ppdk").value.trim();
+
+    let text = "";
+
+    // Validasi kecamatan
+    if (kecamatan === "") {
+        text = "Nama kecamatan tidak boleh kosong";
+    }
+
+    // Validasi longitude
+    else if (
+        longitude === "" ||
+        !Number.isFinite(Number(longitude)) ||
+        Number(longitude) < -180 ||
+        Number(longitude) > 180
+    ) {
+        text = "Longitude harus berupa angka -180 sampai 180";
+    }
+
+    // Validasi latitude
+    else if (
+        latitude === "" ||
+        !Number.isFinite(Number(latitude)) ||
+        Number(latitude) < -90 ||
+        Number(latitude) > 90
+    ) {
+        text = "Latitude harus berupa angka -90 sampai 90";
+    }
+
+    // Validasi luas
+    else if (
+        luas === "" ||
+        isNaN(luas) ||
+        Number(luas) < 1
+    ) {
+        text = "Data luas harus angka dan tidak boleh bernilai negatif";
+    }
+
+    // Validasi jumlah penduduk
+    else if (
+        jumlahPenduduk === "" ||
+        !/^\d+$/.test(jumlahPenduduk)
+    ) {
+        text = "Jumlah penduduk harus berupa bilangan bulat tidak negatif";
+    }
+
+    document.getElementById("informasi").textContent = text;
+
+    if (text !== "") {
+        return false;
+    }
+
+    return true;
+}
+</script>
+
+</body>
+</html>
